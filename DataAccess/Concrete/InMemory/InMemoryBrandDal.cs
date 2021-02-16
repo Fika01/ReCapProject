@@ -3,6 +3,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
@@ -38,12 +39,24 @@ namespace DataAccess.Concrete.InMemory
             return _brands;
         }
 
+        
+
+        public Brand Get(Expression<Func<Brand, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Brand brand)
         {
             Brand brandToUpdate = _brands.SingleOrDefault(b => b.BrandId == brand.BrandId);
 
             brandToUpdate.BrandName = brand.BrandName;
 
+        }
+
+        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
