@@ -11,24 +11,16 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            var result = carManager.GetCarDetails();
-            if (result.Success==true)
-            {
-                foreach(var car in carManager.GetCarDetails().Data)
-                {
-                    Console.WriteLine(car.CarId + " | " + car.BrandName + " | " + car.ColorName + " | " + car.DailyPrice);
-                }
-                
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+
             
-            
+            //RentalTest();
+            //UserAdd();
+
+            //CarDetial();
+
+
             //BrandAdd();
-            //CarListe();
+            CarListe();
 
             //CarColorById();
             //CarAdd();
@@ -39,11 +31,56 @@ namespace ConsoleUI
             //}
         }
 
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental
+            {
+                CarId = 2,
+                CustomerId = 1,
+                RentDate = new DateTime(2021, 1, 28)
+            });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserAdd()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result = userManager.Add(new User
+            {
+                FirstName = "Akif",
+                LastName = "Geçmelik",
+                Email = "adsa@daa.com"
+            });
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void CarDetial()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetCarDetails();
+            if (result.Success == true)
+            {
+                foreach (var car in carManager.GetCarDetails().Data)
+                {
+                    Console.WriteLine(car.CarId + " | " + car.BrandName + " | " + car.ColorName + " | " + car.DailyPrice);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
         private static void BrandAdd()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             brandManager.Update(new Brand { BrandId = 3, BrandName = "Anadol" });
-            
+
 
         }
 
@@ -65,10 +102,10 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            var result = carManager.GetCarsByColorId(1);
+            var result = carManager.GetCarByColorId(1);
             if (result.Success == true)
             {
-                foreach (var car in carManager.GetCarsByColorId(1).Data)
+                foreach (var car in carManager.GetCarByColorId(1).Data)
                 {
                     Console.Write("Car Id = " + car.CarId + " | ");
                     Console.Write("Renk Id = " + car.ColorId + " | ");
@@ -82,7 +119,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine(result.Message);
             }
-            
+
         }
 
         private static void CarListe()
@@ -107,7 +144,7 @@ namespace ConsoleUI
             {
                 Console.WriteLine(result.Message);
             }
-            
+
         }
     }
 }

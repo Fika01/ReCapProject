@@ -10,7 +10,7 @@ namespace Core.Utilities.Results
         {
 
         }
-        public SuccessResult(object uptaded) : base(true)
+        public SuccessResult() : base(true)
         {
 
         }
